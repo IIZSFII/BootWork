@@ -8,6 +8,8 @@
 
 <h2 th:text="${name}"></h2>
 <a href="/loginOut">登出</a><br/>
+进入用户添加页面：<a href="add">用户添加</a><br/>
+进入用户更新页面：<a href="update">用户更新</a><br/>
 <div shiro:hasPermission="user:add">进入用户添加页面：<a href="add">用户添加</a><br/></div>
 <div shiro:hasPermission="user:update">进入用户更新页面：<a href="update">用户更新</a><br/></div>
 </body>

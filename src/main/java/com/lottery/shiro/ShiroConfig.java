@@ -31,13 +31,19 @@ public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityMana
      *       role: 该资源必须得到角色权限才可以访问
      */
     Map<String,String> filterMap=new LinkedHashMap<String,String>();
-    filterMap.put("/index1","anon");
+    /*anon: 无需认证（登录）可以访问*/
+    filterMap.put("/tolgin","anon");
     filterMap.put("/login","anon");
-    filterMap.put("/add","perms[user:add]");
-    filterMap.put("/update","perms[user:update]");
-    filterMap.put("/*","authc");
+    filterMap.put("/images/**","anon");
+    filterMap.put("/webjars/**","anon");
+    /*perms： 该资源必须得到资源权限才可以访问*/
+/*    filterMap.put("/add","perms[user:add]");
+    filterMap.put("/update","perms[user:update]");*/
+    /*需登录认证才可访问的操作*/
+    filterMap.put("/**","authc");
+    /*默认的登陆页面和无操作权限页面*/
     shiroFilterFactoryBean.setLoginUrl("/tologin");
-    shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
+    //shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
     shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
     return shiroFilterFactoryBean;
 }

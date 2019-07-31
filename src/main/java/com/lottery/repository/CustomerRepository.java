@@ -1,4 +1,4 @@
-package com.lottery.dao;
+package com.lottery.repository;
 
 
 import com.lottery.entity.Customer;

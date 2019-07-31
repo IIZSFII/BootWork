@@ -1,5 +1,5 @@
 import com.lottery.MainBootStart;
-import com.lottery.dao.CustomerRepository;
+import com.lottery.repository.CustomerRepository;
 import com.lottery.entity.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;

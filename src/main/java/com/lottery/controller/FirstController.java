@@ -1,13 +1,8 @@
 package com.lottery.controller;
 
-import com.lottery.dao.CustomerRepository;
 import com.lottery.entity.Customer;
+import com.lottery.repository.CustomerRepository;
 import com.lottery.util.Scheduled.AsyncSchedulerDemo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +22,6 @@ public class FirstController {
     private CustomerRepository customerRepository;
     @Autowired
     private AsyncSchedulerDemo instance;
-
     @ResponseBody
     @RequestMapping("/main")
     public Customer findSom(){
@@ -36,7 +30,6 @@ public class FirstController {
         Logger.debug("记录日志BUG");
         return lc;
     }
-
     @Scheduled(fixedRate = 1000)
     public void doTime(){
         Date date = new Date();
@@ -73,41 +66,8 @@ public class FirstController {
     public String updateUser(Model model){
         return "/user/update";
     }
-    @RequestMapping("/tologin")
-    public String tologin(Model model){
-        return "/login";
-    }
-
     @RequestMapping("/unAuth")
     public String unAuth(Model model){
         return "/unAuth";
-    }
-
-    @RequestMapping("/login")
-    public String login(String name,String password, Model model){
-        //设置shiro认证
-        Subject subject= SecurityUtils.getSubject();
-        UsernamePasswordToken UsernamePasswordToken=new UsernamePasswordToken(name,password);
-        try {
-            subject.login(UsernamePasswordToken);
-            //登录成功
-            return "redirect:/index1";
-        }catch (UnknownAccountException e){
-            //e.printStackTrace();
-           //登录失败:用户名不存在
-            model.addAttribute("msg", "用户名不存在");
-            return "login";
-        }catch (IncorrectCredentialsException e) {
-            //e.printStackTrace();
-            //登录失败:密码错误
-            model.addAttribute("msg", "密码错误");
-            return "login";
-        }
-    }
-    @RequestMapping("/loginOut")
-    public String logOut(Model model){
-        Subject subject= SecurityUtils.getSubject();
-        subject.logout();
-        return  "redirect:/tologin";
     }
 }
